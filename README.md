@@ -65,7 +65,7 @@ public class MyModel
     [Index(2)]
     public string MyProperty3 {get; set;}
 }
-``
+```
 
 
 # Example Usage
@@ -100,7 +100,7 @@ class Program
     }
 }
 
-``
+```
 
 
 
