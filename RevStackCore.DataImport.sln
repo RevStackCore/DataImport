@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevStackCore.DataImport", "RevStackCore.DataImport\RevStackCore.DataImport.csproj", "{3197E528-BEA1-44C1-8350-04986F3A43D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3197E528-BEA1-44C1-8350-04986F3A43D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3197E528-BEA1-44C1-8350-04986F3A43D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3197E528-BEA1-44C1-8350-04986F3A43D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3197E528-BEA1-44C1-8350-04986F3A43D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

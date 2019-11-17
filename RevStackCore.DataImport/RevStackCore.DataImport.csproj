@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PackageId>RevStackCore.DataImport</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>S. Francis</Authors>
+    <Description>Import and Model bind CSV and Excel files</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Net Standard 2.0 release</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/RevStackCore/DataImport.git</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/RevStackCore/DataImport/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://s3.amazonaws.com/revstack/icons/revstackcore-64x64.png</PackageIconUrl>
+    <Copyright>Copyright 2019</Copyright>
+    <PackageTags>RevStackCore Excel CSV Import</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <PackageReference Include="CsvHelper" Version="12.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataImport\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+</Project>

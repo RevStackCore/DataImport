@@ -1,0 +1,19 @@
+{
+  "name": "RevStackCore.DataImport",
+  "version": "1.0.0",
+  "description": "Import and Model bind CSV and Excel files",
+	"main": "RevStackCore.DataImport.sln",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+		"url": "https://github.com/RevStackCore/DataImport.git"
+  },
+  "author": "S. Francis",
+  "license": "MIT",
+  "bugs": {
+		"url": "https://github.com/RevStackCore/DataImport/issues"
+  },
+	"homepage": "https://github.com/RevStackCore/DataImport"
+}
