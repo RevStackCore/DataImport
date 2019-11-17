@@ -2,7 +2,7 @@
 
 Import and Model bind CSV and Excel files. The library is essentially a read-only operation wrapper around CvsHelper that also provides support for Excel(.xlsx) files.
 
-
+[![Build status](https://ci.appveyor.com/api/projects/status/pejda29yjhfwhwq6?svg=true)](https://ci.appveyor.com/project/tachyon1337/dataimport)
 
 # Nuget Installation
 
