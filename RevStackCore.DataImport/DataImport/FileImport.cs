@@ -74,7 +74,49 @@ namespace RevStackCore.DataImport
             return Task.FromResult(ImportExcel<T>(file, ignoreHeader));
         }
 
-       
+        public void ExportCsv<T>(IEnumerable<T> items, string filePath, bool useQuotes=true) where T : class
+        {
+            using (var writer = new StreamWriter(filePath))
+            using (var csv = new CsvWriter(writer))
+            {
+                if(useQuotes)
+                {
+                    csv.Configuration.ShouldQuote = (field, context) => true;
+                }
+                csv.WriteRecords(items);
+                writer.Flush();
+            }
+        }
+
+        public Task ExportCsvAsync<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class
+        {
+            return Task.Run(() => ExportCsv<T>(items,filePath, useQuotes));
+        }
+
+        public Stream ExportCsvStream<T>(IEnumerable<T> items, bool useQuotes = true) where T : class
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var streamWriter = new StreamWriter(memoryStream))
+                using (var csv = new CsvWriter(streamWriter))
+                {
+                    if (useQuotes)
+                    {
+                        csv.Configuration.ShouldQuote = (field, context) => true;
+                    }
+                    csv.WriteRecords<T>(items);
+                }
+
+                return memoryStream;
+            }
+        }
+
+        public Task<Stream> ExportCsvStreamAsync<T>(IEnumerable<T> items, bool useQuotes = true) where T : class
+        {
+            return Task.FromResult(ExportCsvStream<T>(items, useQuotes));
+        }
+
+
         private IEnumerable<T> importCvsData<T>(StreamReader reader, bool hasHeader = true, bool matchCase = false) where T : class
         {
             using (var csv = new CsvReader(reader))

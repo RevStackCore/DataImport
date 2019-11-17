@@ -1,6 +1,6 @@
 # RevStackCore.DataImport
 
-Import and Model bind CSV and Excel files. The library is essentially a read-only operation wrapper around CvsHelper that also provides support for Excel(.xlsx) files.
+Import and Model bind CSV and Excel files. The library is essentially a wrapper around CvsHelper that also provides support for Excel(.xlsx) files.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/pejda29yjhfwhwq6?svg=true)](https://ci.appveyor.com/project/tachyon1337/dataimport)
 
@@ -24,6 +24,10 @@ public interface IDataImport
     Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase = false) where T : class;
     IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase = false) where T : class;
     Task<IEnumerable<T>> ImportExcelAsync<T>(Stream file, bool ignoreHeader = false, bool matchCase = false) where T : class;
+    void ExportCsv<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class;
+    Task ExportCsvAsync<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class;
+    Stream ExportCsvStream<T>(IEnumerable<T> items, bool useQuotes = true) where T : class;
+    Task<Stream> ExportCsvStreamAsync<T>(IEnumerable<T> items, bool useQuotes = true) where T : class;
 }
 
 public class FileImport : IDataImport
@@ -36,6 +40,10 @@ public class FileImport : IDataImport
     public Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase=false) where T : class
     public IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase=false) where T : class
     public Task<IEnumerable<T>> ImportExcelAsync<T>(Stream file, bool ignoreHeader = false, bool matchCase=false) where T : class
+    public void ExportCsv<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class
+    public Task ExportCsvAsync<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class
+    public Stream ExportCsvStream<T>(IEnumerable<T> items, bool useQuotes = true) where T : class
+    public Task<Stream> ExportCsvStreamAsync<T>(IEnumerable<T> items, bool useQuotes = true) where T : class
 }
 ```
 

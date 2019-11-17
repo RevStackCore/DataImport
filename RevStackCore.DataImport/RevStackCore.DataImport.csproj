@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageId>RevStackCore.DataImport</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Authors>S. Francis</Authors>
     <Description>Import and Model bind CSV and Excel files</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
