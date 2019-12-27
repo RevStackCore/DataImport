@@ -73,6 +73,17 @@ public class MyModel
     [Index(2)]
     public string MyProperty3 {get; set;}
 }
+
+//Name attribute 
+public class MyModel2
+{
+    [Name("Property One")]
+    public string Property1 {get; set;}
+    [Name("Property Two")]
+    public string Property2 {get; set;}
+    [Name("Property Three")]
+    public string Property3 {get; set;}
+}
 ```
 
 
