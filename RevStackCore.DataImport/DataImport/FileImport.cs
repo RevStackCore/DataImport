@@ -49,9 +49,20 @@ namespace RevStackCore.DataImport
             }
         }
 
-        public Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase=false) where T : class
+        public IEnumerable<T> ImportExcel<T>(string filePath, bool ignoreHeader = false, bool matchCase = false, int worksheetIndex=1) where T : class
         {
-            return Task.FromResult(ImportExcel<T>(filePath, ignoreHeader));
+            bool hasHeader = !(ignoreHeader);
+            FileInfo file = new FileInfo(filePath);
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                ExcelWorksheet workSheet = package.Workbook.Worksheets.ElementAtOrDefault(worksheetIndex);
+                var byteArray = workSheet.ToCsvByteArray(ignoreHeader, matchCase);
+                using (var stream = new MemoryStream(byteArray))
+                using (var reader = new StreamReader(stream))
+                {
+                    return importCvsData<T>(reader, hasHeader, false);
+                }
+            }
         }
 
         public IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase=false) where T : class
@@ -69,9 +80,39 @@ namespace RevStackCore.DataImport
             }
         }
 
+        public IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase = false, int worksheetIndex=1) where T : class
+        {
+            bool hasHeader = !(ignoreHeader);
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                ExcelWorksheet workSheet = package.Workbook.Worksheets.ElementAtOrDefault(worksheetIndex);
+                var byteArray = workSheet.ToCsvByteArray(ignoreHeader, matchCase);
+                using (var stream = new MemoryStream(byteArray))
+                using (var reader = new StreamReader(stream))
+                {
+                    return importCvsData<T>(reader, hasHeader, false);
+                }
+            }
+        }
+
+        public Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase = false) where T : class
+        {
+            return Task.FromResult(ImportExcel<T>(filePath, ignoreHeader, matchCase));
+        }
+
+        public Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase = false, int worksheetIndex = 1) where T : class
+        {
+            return Task.FromResult(ImportExcel<T>(filePath, ignoreHeader, matchCase, worksheetIndex));
+        }
+
         public Task<IEnumerable<T>> ImportExcelAsync<T>(Stream file, bool ignoreHeader = false, bool matchCase=false) where T : class
         {
-            return Task.FromResult(ImportExcel<T>(file, ignoreHeader));
+            return Task.FromResult(ImportExcel<T>(file, ignoreHeader, matchCase));
+        }
+
+        public Task<IEnumerable<T>> ImportExcelAsync<T>(Stream file, bool ignoreHeader = false, bool matchCase = false, int worksheetIndex=1) where T : class
+        {
+            return Task.FromResult(ImportExcel<T>(file, ignoreHeader, matchCase, worksheetIndex));
         }
 
         public void ExportCsv<T>(IEnumerable<T> items, string filePath, bool useQuotes=true) where T : class
