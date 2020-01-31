@@ -11,26 +11,26 @@ namespace RevStackCore.DataImport
     public class FileImport : IDataImport
     {
 
-        public IEnumerable<T> ImportCvs<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
+        public IEnumerable<T> ImportCsv<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
         {
             using (var reader = new StreamReader(filePath))
                 return importCvsData<T>(reader, hasHeader, matchCase);
         }
 
-        public Task<IEnumerable<T>> ImportCvsAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
+        public Task<IEnumerable<T>> ImportCsvAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
         {
-            return Task.FromResult(ImportCvs<T>(filePath, hasHeader, matchCase));
+            return Task.FromResult(ImportCsv<T>(filePath, hasHeader, matchCase));
         }
 
-        public IEnumerable<T> ImportCvs<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
+        public IEnumerable<T> ImportCsv<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
         {
             using (var reader=new StreamReader(file))
                 return importCvsData<T>(reader, hasHeader, matchCase);
         }
 
-        public Task<IEnumerable<T>> ImportCvsAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
+        public Task<IEnumerable<T>> ImportCsvAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
         {
-            return Task.FromResult(ImportCvs<T>(file, hasHeader, matchCase));
+            return Task.FromResult(ImportCsv<T>(file, hasHeader, matchCase));
         }
 
         public IEnumerable<T> ImportExcel<T>(string filePath, bool ignoreHeader=false, bool matchCase=false) where T : class

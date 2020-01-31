@@ -1,6 +1,6 @@
 # RevStackCore.DataImport
 
-Import and Model bind CSV and Excel files. The library is essentially a wrapper around CvsHelper that also provides support for Excel(.xlsx) files.
+Import and Model bind CSV and Excel files. The library is essentially a wrapper around CsvHelper that also provides support for Excel(.xlsx) files.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/pejda29yjhfwhwq6?svg=true)](https://ci.appveyor.com/project/tachyon1337/dataimport)
 
@@ -16,10 +16,10 @@ Install-Package RevStackCore.DataImport
 ```cs
 public interface IDataImport
 {
-    IEnumerable<T> ImportCvs<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class;
-    Task<IEnumerable<T>> ImportCvsAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class;
-    IEnumerable<T> ImportCvs<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class;
-    Task<IEnumerable<T>> ImportCvsAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class;
+    IEnumerable<T> ImportCsc<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class;
+    Task<IEnumerable<T>> ImportCsvAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class;
+    IEnumerable<T> ImportCsv<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class;
+    Task<IEnumerable<T>> ImportCsvAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class;
     IEnumerable<T> ImportExcel<T>(string filePath, bool ignoreHeader = false, bool matchCase=false) where T : class;
     Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase = false) where T : class;
     IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase = false) where T : class;
@@ -32,10 +32,10 @@ public interface IDataImport
 
 public class FileImport : IDataImport
 {
-    public IEnumerable<T> ImportCvs<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
-    public Task<IEnumerable<T>> ImportCvsAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
-    public IEnumerable<T> ImportCvs<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
-    public Task<IEnumerable<T>> ImportCvsAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
+    public IEnumerable<T> ImportCsv<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
+    public Task<IEnumerable<T>> ImportCsvAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
+    public IEnumerable<T> ImportCsv<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
+    public Task<IEnumerable<T>> ImportCsvAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
     public IEnumerable<T> ImportExcel<T>(string filePath, bool ignoreHeader=false, bool matchCase=false) where T : class
     public Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase=false) where T : class
     public IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase=false) where T : class
@@ -102,7 +102,7 @@ class Program
         ConfigureServices(serviceCollection);
         var serviceProvider = serviceCollection.BuildServiceProvider();
         var fileImport = serviceProvider.GetService<IDataImport>();
-        var result = await fileImport.ImportCvsAsync<MyModel>("/path/to/file.csv");
+        var result = await fileImport.ImportCsvAsync<MyModel>("/path/to/file.csv");
         foreach(var model in result)
         {
             //do something with (MyModel)model
