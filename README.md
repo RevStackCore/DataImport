@@ -16,14 +16,14 @@ Install-Package RevStackCore.DataImport
 ```cs
 public interface IDataImport
 {
-    IEnumerable<T> ImportCsc<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class;
-    Task<IEnumerable<T>> ImportCsvAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class;
-    IEnumerable<T> ImportCsv<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class;
-    Task<IEnumerable<T>> ImportCsvAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class;
-    IEnumerable<T> ImportExcel<T>(string filePath, bool ignoreHeader = false, bool matchCase=false) where T : class;
-    Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase = false) where T : class;
-    IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase = false) where T : class;
-    Task<IEnumerable<T>> ImportExcelAsync<T>(Stream file, bool ignoreHeader = false, bool matchCase = false) where T : class;
+    IEnumerable<T> ImportCsc<T>(string filePath, bool hasHeader = true, bool matchCase = false,string replace = null, bool useTabDelimiter = false) where T : class;
+    Task<IEnumerable<T>> ImportCsvAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false,string replace = null, bool useTabDelimiter = false) where T : class;
+    IEnumerable<T> ImportCsv<T>(Stream file, bool hasHeader = true, bool matchCase = false,string replace = null, bool useTabDelimiter = false) where T : class;
+    Task<IEnumerable<T>> ImportCsvAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false,string replace = null, bool useTabDelimiter = false) where T : class;
+    IEnumerable<T> ImportExcel<T>(string filePath, bool ignoreHeader = false, bool matchCase=false,string replace = null) where T : class;
+    Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase = false,string replace = null) where T : class;
+    IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase = false,string replace = null) where T : class;
+    Task<IEnumerable<T>> ImportExcelAsync<T>(Stream file, bool ignoreHeader = false, bool matchCase = false,string replace = null) where T : class;
     void ExportCsv<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class;
     Task ExportCsvAsync<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class;
     Stream ExportCsvStream<T>(IEnumerable<T> items, bool useQuotes = true) where T : class;
@@ -32,14 +32,14 @@ public interface IDataImport
 
 public class FileImport : IDataImport
 {
-    public IEnumerable<T> ImportCsv<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
-    public Task<IEnumerable<T>> ImportCsvAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false) where T : class
-    public IEnumerable<T> ImportCsv<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
-    public Task<IEnumerable<T>> ImportCsvAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false) where T : class
-    public IEnumerable<T> ImportExcel<T>(string filePath, bool ignoreHeader=false, bool matchCase=false) where T : class
-    public Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase=false) where T : class
-    public IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase=false) where T : class
-    public Task<IEnumerable<T>> ImportExcelAsync<T>(Stream file, bool ignoreHeader = false, bool matchCase=false) where T : class
+    public IEnumerable<T> ImportCsv<T>(string filePath, bool hasHeader = true, bool matchCase = false,string replace = null, bool useTabDelimiter = false) where T : class
+    public Task<IEnumerable<T>> ImportCsvAsync<T>(string filePath, bool hasHeader = true, bool matchCase = false,string replace = null, bool useTabDelimiter = false) where T : class
+    public IEnumerable<T> ImportCsv<T>(Stream file, bool hasHeader = true, bool matchCase = false,string replace = null, bool useTabDelimiter = false) where T : class
+    public Task<IEnumerable<T>> ImportCsvAsync<T>(Stream file, bool hasHeader = true, bool matchCase = false,string replace = null, bool useTabDelimiter = false) where T : class
+    public IEnumerable<T> ImportExcel<T>(string filePath, bool ignoreHeader=false, bool matchCase=false,string replace = null) where T : class
+    public Task<IEnumerable<T>> ImportExcelAsync<T>(string filePath, bool ignoreHeader = false, bool matchCase=false,string replace = null) where T : class
+    public IEnumerable<T> ImportExcel<T>(Stream file, bool ignoreHeader = false, bool matchCase=false,string replace = null) where T : class
+    public Task<IEnumerable<T>> ImportExcelAsync<T>(Stream file, bool ignoreHeader = false, bool matchCase=false,string replace = null) where T : class
     public void ExportCsv<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class
     public Task ExportCsvAsync<T>(IEnumerable<T> items, string filePath, bool useQuotes = true) where T : class
     public Stream ExportCsvStream<T>(IEnumerable<T> items, bool useQuotes = true) where T : class
@@ -53,6 +53,12 @@ FileImport will model bind the imported data to the passed model class reference
 
 For CSV, if the file has no column header:
 hasHeader=false;
+
+For CSV, if the header has columns with a special character that is illegal to map to a c# property:
+replace="strChar". The specified character in a column header will be replaced with an empty string.
+
+For CSV, if tab delimited:
+useTabDelimiter = true
 
 For Excel, if the file has no column header:
 ignoreHeader=true;
