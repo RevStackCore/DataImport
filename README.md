@@ -49,16 +49,19 @@ public class FileImport : IDataImport
 
 # Model Binding
 
-FileImport will model bind the imported data to the passed model class reference based on the column header fields in the .csv or .xlsx file. If the column casing of the file doesn't match the Pascal case of the model class properties, set matchCase=true in the applicable api call. If there is no header, or if the header columns do not match the model class properties at all, use the IndexAttribute property attribute to map fields to class properties by index.
+FileImport will model bind the imported data to the passed model class reference based on the column header fields in the .csv or .xlsx file. If there is no header, or if the header columns do not match the model class properties at all, use the IndexAttribute property attribute to map fields to class properties by index.
 
 For CSV, if the file has no column header:
 hasHeader=false;
 
-For CSV, if the header has columns with a special character that is illegal to map to a c# property:
-replace="strChar". The specified character in a column header will be replaced with an empty string.
-
 For CSV, if tab delimited:
 useTabDelimiter = true
+
+For CSV or Excel, if the header has columns with a special character that is illegal to map to a c# property:
+replace="strChar". The specified character in a column header will be replaced with an empty string.
+
+For CSV or Excel, to force column headers to match case:
+matchCase=true;
 
 For Excel, if the file has no column header:
 ignoreHeader=true;
